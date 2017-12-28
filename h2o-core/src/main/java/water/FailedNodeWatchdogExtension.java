@@ -114,8 +114,8 @@ public class FailedNodeWatchdogExtension extends AbstractH2OExtension {
         if(watchDogStopWithout){
             new CheckWatchdogConnectedThread().start();
         }
-        new FailedNodeWatchdogThread().start();
-        H2O.SELF._heartbeat._watchdog_client = watchDogClient;
+        //new FailedNodeWatchdogThread().start();
+        //H2O.SELF._heartbeat._watchdog_client = watchDogClient;
     }
 
     private class CheckWatchdogConnectedThread extends Thread {
