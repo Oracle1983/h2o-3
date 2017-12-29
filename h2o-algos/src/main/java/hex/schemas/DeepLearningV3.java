@@ -450,7 +450,7 @@ public class DeepLearningV3 extends ModelBuilderSchema<DeepLearning,DeepLearning
      * output classes, not just for the actual class).
      */
     @API(level = API.Level.secondary, direction = API.Direction.INOUT, gridable = true, required = false,
-        values = {"Automatic", "CrossEntropy", "Quadratic", "Huber", "Absolute", "Quantile"},
+        values = {"Automatic", "CrossEntropy", "Quadratic", "Huber", "Absolute", "Quantile", "QuasiBinomial"},
         help = "Loss function.")
     public DeepLearningParameters.Loss loss;
 
