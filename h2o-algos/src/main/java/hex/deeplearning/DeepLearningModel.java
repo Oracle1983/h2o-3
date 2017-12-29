@@ -1720,7 +1720,7 @@ public class DeepLearningModel extends Model<DeepLearningModel,DeepLearningModel
      * Quadratic, ModifiedHuber or CrossEntropy for classification
      */
     public enum Loss {
-      Automatic, Quadratic, CrossEntropy, ModifiedHuber, Huber, Absolute, Quantile, QuasiBinomial
+      Automatic, Quadratic, CrossEntropy, ModifiedHuber, Huber, Absolute, Quantile
     }
 
     /**
@@ -1849,7 +1849,6 @@ public class DeepLearningModel extends Model<DeepLearningModel,DeepLearningModel
           case tweedie:
           case gamma:
           case poisson:
-          case quasibinomial:
             dl.error("_distribution", technote(2, _distribution  + " distribution is not allowed for classification."));
             break;
           case AUTO:
@@ -1887,7 +1886,6 @@ public class DeepLearningModel extends Model<DeepLearningModel,DeepLearningModel
             break;
           case AUTO:
           case gaussian:
-          case quasibinomial:
           default:
             //OK
             break;
@@ -2229,9 +2227,6 @@ public class DeepLearningModel extends Model<DeepLearningModel,DeepLearningModel
               case Quantile:
                 toParms._distribution = DistributionFamily.quantile;
                 break;
-              case QuasiBinomial:
-                toParms._distribution = DistributionFamily.quasibinomial;
-                break;
               case Huber:
                 toParms._distribution = DistributionFamily.huber;
                 break;
@@ -2268,8 +2263,7 @@ public class DeepLearningModel extends Model<DeepLearningModel,DeepLearningModel
             // classification
             case multinomial:
             case bernoulli:
-            case quasibinomial:
-              toParms._loss = QuasiBinomial;
+              toParms._loss = CrossEntropy;
               break;
             case modified_huber:
               toParms._loss = ModifiedHuber;

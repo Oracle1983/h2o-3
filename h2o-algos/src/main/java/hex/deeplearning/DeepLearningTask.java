@@ -280,7 +280,7 @@ public class DeepLearningTask extends FrameTask<DeepLearningTask> {
       }
     }
     if(!params._autoencoder) {
-      if (minfo._classification && params._distribution != DistributionFamily.modified_huber && params._distribution != DistributionFamily.quasibinomial)
+      if (minfo._classification && minfo.get_params()._distribution != DistributionFamily.modified_huber)
         neurons[neurons.length - 1] = new Neurons.Softmax(minfo.units[minfo.units.length - 1]);
       else
         neurons[neurons.length - 1] = new Neurons.Linear();

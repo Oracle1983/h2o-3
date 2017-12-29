@@ -59,7 +59,6 @@ public class DeepLearningGradientCheck extends TestUtil {
       double maxRelErr = 0;
       double meanRelErr = 0;
       for (DistributionFamily dist : new DistributionFamily[]{
-              DistributionFamily.quasibinomial,
               DistributionFamily.gaussian,
               DistributionFamily.laplace,
               DistributionFamily.quantile,
