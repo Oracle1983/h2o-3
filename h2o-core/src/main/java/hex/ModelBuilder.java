@@ -962,6 +962,9 @@ abstract public class ModelBuilder<M extends Model<M,P,O>, P extends Model.Param
         }
         if (expensive) checkDistributions();
         _nclass = _response.isCategorical() ? _response.cardinality() : 1;
+        if (_parms._distribution == DistributionFamily.quasibinomial) {
+          _nclass = 2;
+        }
         if (_response.isConst())
           error("_response","Response cannot be constant.");
       }
@@ -980,7 +983,7 @@ abstract public class ModelBuilder<M extends Model<M,P,O>, P extends Model.Param
           return;
         }
         if(_response != null && computePriorClassDistribution()) {
-          if (isClassifier() && isSupervised()) {
+          if (isClassifier() && isSupervised() && _parms._distribution != DistributionFamily.quasibinomial) {
             MRUtils.ClassDist cdmt =
                 _weights != null ? new MRUtils.ClassDist(nclasses()).doAll(_response, _weights) : new MRUtils.ClassDist(nclasses()).doAll(_response);
             _distribution = cdmt.dist();

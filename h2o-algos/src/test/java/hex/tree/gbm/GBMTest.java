@@ -3130,14 +3130,12 @@ public class GBMTest extends TestUtil {
       // binomial - categorical response, optimize logloss
       params._train = fr._key;
       params._distribution = DistributionFamily.bernoulli;
-      params._stopping_metric = ScoreKeeper.StoppingMetric.logloss;
       GBM gbm = new GBM(params);
       model = gbm.trainModel().get();
       preds = model.score(fr);
 
       // quasibinomial - numeric response, minimize deviance (negative log-likelihood)
       params._distribution = DistributionFamily.quasibinomial;
-      params._stopping_metric = ScoreKeeper.StoppingMetric.deviance;
       params._train = fr2._key;
       GBM gbm2 = new GBM(params);
       model2 = gbm2.trainModel().get();
@@ -3149,17 +3147,15 @@ public class GBMTest extends TestUtil {
       // compare training metrics of both models
       assertEquals(
           ((ModelMetricsBinomial)model._output._training_metrics).logloss(),
-          ((ModelMetricsRegression)model2._output._training_metrics).residual_deviance() * 0.5, 1e-10);
+          ((ModelMetricsBinomial)model2._output._training_metrics).logloss(), 1e-10);
 
       // compare CV metrics of both models
       assertEquals(
           ((ModelMetricsBinomial)model._output._cross_validation_metrics).logloss(),
-          ((ModelMetricsRegression)model2._output._cross_validation_metrics).residual_deviance() * 0.5, 1e-10);
+          ((ModelMetricsBinomial)model2._output._cross_validation_metrics).logloss(), 1e-3);
 
-      // compare predictions of both models
-      preds.remove(new int[]{0, 1});
-      preds.setNames(new String[]{"predict"});
-      assertTrue(isIdenticalUpToRelTolerance(preds, preds2, 1e-10));
+      // compare training predictions of both models
+      assertTrue(isIdenticalUpToRelTolerance(preds, preds2, 1e-2));
 
     } finally {
       preds.delete();

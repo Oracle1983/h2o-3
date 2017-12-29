@@ -99,7 +99,10 @@ public class GBM extends SharedTree<GBMModel,GBMModel.GBMParameters,GBMModel.GBM
         error("_distribution", H2O.technote(2, "Binomial requires the response to be a 2-class categorical"));
       break;
     case quasibinomial:
-      if (isClassifier()) error("_distribution", H2O.technote(2, "Quasibinomial requires the response to be numeric."));
+      if ( !_response.isNumeric() )
+        error("_distribution", H2O.technote(2, "Quasibinomial requires the response to be numeric."));
+      if ( _nclass != 2)
+        error("_distribution", H2O.technote(2, "Quasibinomial requires the response to be binary."));
       break;
     case modified_huber:
       if( _nclass != 2 /*&& !couldBeBool(_response)*/)

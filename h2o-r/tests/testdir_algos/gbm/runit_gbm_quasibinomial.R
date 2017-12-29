@@ -84,19 +84,19 @@ test.GBM.quasi_binomial <- function() {
                   seed=1234, col_sample_rate=0.7, learn_rate=0.01, nfolds=10,
                   weights_column="weight",
                   stopping_rounds=10,stopping_tolerance=0)
-  # compute log-likelihood for h2o gbm predictions
+  # compute negative log-likelihood for h2o gbm predictions
   h2o_gbm_pred1 = as.data.frame(h2o.predict(m_gbm1, as.h2o(X))[,3])
   h2o_gbm_pred1[h2o_gbm_pred1==0] <- .Machine$double.neg.eps
   h2o_gbm_pred1[h2o_gbm_pred1==1] <- 1-.Machine$double.neg.eps
-  l2 <- -sum( Y*log(h2o_gbm_pred1)  + (1-Y)*log(1-h2o_gbm_pred1)  )
+  l2 <- -sum( Y*log(h2o_gbm_pred1)  + (1-Y)*log(1-h2o_gbm_pred1) )
 
   # fit h2o gbm model
   m_gbm = h2o.gbm(training_frame = hf, x=x, y=y, distribution='quasibinomial', ntrees=1000,
                   seed=1234, col_sample_rate=0.7, learn_rate=0.01, nfolds=10,
                   stopping_rounds=10,stopping_tolerance=0)
 
-  # compute log-likelihood for h2o gbm predictions
-  h2o_gbm_pred = as.data.frame(h2o.predict(m_gbm, as.h2o(X)))
+  # compute negative log-likelihood for h2o gbm predictions
+  h2o_gbm_pred = as.data.frame(h2o.predict(m_gbm, as.h2o(X))[,3])
   h2o_gbm_pred[h2o_gbm_pred==0] <- .Machine$double.neg.eps
   h2o_gbm_pred[h2o_gbm_pred==1] <- 1-.Machine$double.neg.eps
   l3 <- -sum( Y.tilde*log(h2o_gbm_pred)  + (1-Y.tilde)*log(1-h2o_gbm_pred)  )
