@@ -3141,6 +3141,10 @@ public class GBMTest extends TestUtil {
       model2 = gbm2.trainModel().get();
       preds2 = model2.score(fr2);
 
+      // Done building model; produce a score column with predictions
+      // Build a POJO, validate same results
+      Assert.assertTrue(model2.testJavaScoring(fr2,preds2,1e-15));
+
       Log.info(preds.toTwoDimTable());
       Log.info(preds2.toTwoDimTable());
 
