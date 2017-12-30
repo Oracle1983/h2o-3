@@ -3134,10 +3134,12 @@ public class GBMTest extends TestUtil {
       GBMModel.GBMParameters params = new GBMModel.GBMParameters();
       params._response_column = "CAPSULE";
       params._ignored_columns = new String[]{"ID"};
-      params._seed = 12345;
+      params._seed = 1234;
       params._ntrees = 500;
       params._nfolds = 3;
       params._learn_rate = 0.01;
+      params._min_rows = 1;
+      params._min_split_improvement = 0;
       params._stopping_rounds = 10;
       params._stopping_tolerance = 0;
 

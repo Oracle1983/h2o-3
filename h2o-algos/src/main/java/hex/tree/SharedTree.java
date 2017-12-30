@@ -34,7 +34,7 @@ public abstract class SharedTree<M extends SharedTreeModel<M,P,O>, P extends Sha
     return _parms._categorical_encoding == Model.Parameters.CategoricalEncodingScheme.SortByResponse
            && v.cardinality() > _parms._nbins_cats;  // no need to sort categoricals with fewer than nbins_cats - they will be sorted in every leaf anyway
   }
-  final protected static boolean DEV_DEBUG = false;
+  final protected static boolean DEV_DEBUG = true;
   protected int _mtry;
   protected int _mtry_per_tree;
 
