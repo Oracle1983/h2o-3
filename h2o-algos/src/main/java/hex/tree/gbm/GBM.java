@@ -1129,7 +1129,7 @@ public class GBM extends SharedTree<GBMModel,GBMModel.GBMParameters,GBMModel.GBM
   private static double score1static(Chunk[] chks, int treeIdx, double offset, double[] fs, int row, Distribution dist, int nClasses) {
     double f = chks[treeIdx].atd(row) + offset;
     double p = dist.linkInv(f);
-    if (dist.distribution == DistributionFamily.modified_huber || dist.distribution == DistributionFamily.bernoulli) {
+    if (dist.distribution == DistributionFamily.modified_huber || dist.distribution == DistributionFamily.bernoulli || dist.distribution == DistributionFamily.quasibinomial) {
       fs[2] = p;
       fs[1] = 1.0 - p;
       return 1;                 // f2 = 1.0 - f1; so f1+f2 = 1.0

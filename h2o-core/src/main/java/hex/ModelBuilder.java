@@ -1216,7 +1216,7 @@ abstract public class ModelBuilder<M extends Model<M,P,O>, P extends Model.Param
   public void checkDistributions() {
     if (_parms._distribution == DistributionFamily.quasibinomial) {
       if (_response.min() != 0)
-        error("_response", "For quasibinomial distribution, response must have a low value of 0 (negative class).");
+        error("_response", "For quasibinomial distribution, response must have a low value of 0 (negative class), but instead has min value of " + _response.min() + ".");
     } else if (_parms._distribution == DistributionFamily.poisson) {
       if (_response.min() < 0)
         error("_response", "Response must be non-negative for Poisson distribution.");

@@ -42,7 +42,7 @@ public class ModelMetricsSupervised extends ModelMetrics {
     }
 
     public void cachePrediction(double[] cdist, Chunk[] chks, int row, int cacheChunkIdx, Model m) {
-      throw new UnsupportedOperationException("Should be overriden in implementation (together with makePredictionCache(..)).");
+      throw new UnsupportedOperationException("Should be overridden in implementation (together with makePredictionCache(..)).");
     }
   }
 }

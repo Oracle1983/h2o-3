@@ -118,7 +118,10 @@ public class GBMModel extends SharedTreeModel<GBMModel, GBMModel.GBMParameters, 
   @Override protected void toJavaUnifyPreds(SBPrintStream body) {
     // Preds are filled in from the trees, but need to be adjusted according to
     // the loss function.
-    if( _parms._distribution == DistributionFamily.bernoulli || _parms._distribution == DistributionFamily.modified_huber) {
+    if( _parms._distribution == DistributionFamily.bernoulli
+        || _parms._distribution == DistributionFamily.quasibinomial
+        || _parms._distribution == DistributionFamily.modified_huber
+        ) {
       body.ip("preds[2] = preds[1] + ").p(_output._init_f).p(";").nl();
       body.ip("preds[2] = " + new Distribution(_parms).linkInvString("preds[2]") + ";").nl();
       body.ip("preds[1] = 1.0-preds[2];").nl();
